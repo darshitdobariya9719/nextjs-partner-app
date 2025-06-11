@@ -19,6 +19,7 @@ interface DirectoryListingPageProps {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
+
 // export async function generateMetadata({
 //   searchParams,
 // }: DirectoryListingPageProps) {
