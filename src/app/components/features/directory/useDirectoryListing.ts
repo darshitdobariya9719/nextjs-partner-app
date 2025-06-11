@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import api from "@/lib/axiosClient";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import {
   DirectoryListItem,
   DirectoryListResponse,
@@ -39,7 +39,7 @@ export const useDirectoryListing = ({
   fixedPageLimit,
   tenentId,
 }: UseDirectoryListingProps) => {
-  const router = useRouter();
+  // const router = useRouter();
   const dispatch = useAppDispatch();
   const { filters } = useFilters();
   const [searchResults, setSearchResults] = useState<DirectoryListItem[]>([]);
@@ -264,6 +264,6 @@ export const useDirectoryListing = ({
     updateSort,
     fetchMoreOnBottomReached,
     viewMoreClicked, 
-    router,
+    // router,
   };
 };

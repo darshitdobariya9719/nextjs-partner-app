@@ -17,6 +17,7 @@ import Filter from "./filter/Filter";
 import { FilterOptions } from "@/lib/utils/constantValues";
 import Loader from "../../ui-components/Loaders/Loader";
 import { setTotalItems } from "@/lib/redux/slices/directoryListingSlice";
+import { useRouter } from "next/navigation";
 
 interface Props {
   isSearch: boolean;
@@ -37,6 +38,7 @@ interface Props {
 
 export default function DirectoryListing(props: Props) {
   const { filterData } = props;
+  const router = useRouter();
   const dispatch = useAppDispatch();
   const total = useSelector((state: RootState) => state.directoryListing.totalItems);
   const {
@@ -44,7 +46,6 @@ export default function DirectoryListing(props: Props) {
     searchResults,
     searchListLoading,
     updateSort,
-    router,
   } = useDirectoryListing({
     directoryListingList: props.directoryListingList,
     totalItems:  total,
