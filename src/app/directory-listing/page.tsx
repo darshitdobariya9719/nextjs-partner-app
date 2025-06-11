@@ -19,40 +19,40 @@ interface DirectoryListingPageProps {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
-export async function generateMetadata({
-  searchParams,
-}: DirectoryListingPageProps) {
-  const params = await searchParams;
-  const provider = Array.isArray(params?.provider)
-    ? params?.provider[0]
-    : params?.provider;
-  const faviconUrl = process.env.NEXT_PUBLIC_FAVICON_URL || undefined;
+// export async function generateMetadata({
+//   searchParams,
+// }: DirectoryListingPageProps) {
+//   const params = await searchParams;
+//   const provider = Array.isArray(params?.provider)
+//     ? params?.provider[0]
+//     : params?.provider;
+//   const faviconUrl = process.env.NEXT_PUBLIC_FAVICON_URL || undefined;
 
-  const requestDomainData = await getRequestDomainData(provider);
+//   const requestDomainData = await getRequestDomainData(provider);
 
-  let themeData: CustomThemeResponse | null = null;
+//   let themeData: CustomThemeResponse | null = null;
 
-  if (requestDomainData?.slug || requestDomainData?.subDomain) {
-    const themeRes = await api.post<CustomThemeResponse>(
-      "/sp/setup/customTheme",
-      requestDomainData
-    );
-    themeData = themeRes?.data || null;
-  }
+//   if (requestDomainData?.slug || requestDomainData?.subDomain) {
+//     const themeRes = await api.post<CustomThemeResponse>(
+//       "/sp/setup/customTheme",
+//       requestDomainData
+//     );
+//     themeData = themeRes?.data || null;
+//   }
 
-  const title = themeData?.companyName || "Partner Directory";
-  const faviconUrlFromTheme = themeData?.urls?.favIcon || faviconUrl;
-  const icons = {
-    icon: faviconUrlFromTheme,
-  };
+//   const title = themeData?.companyName || "Partner Directory";
+//   const faviconUrlFromTheme = themeData?.urls?.favIcon || faviconUrl;
+//   const icons = {
+//     icon: faviconUrlFromTheme,
+//   };
 
-  return {
-    title,
-    description:
-      "Explore our partner directory to find the best solutions for your needs.",
-    icons,
-  };
-}
+//   return {
+//     title,
+//     description:
+//       "Explore our partner directory to find the best solutions for your needs.",
+//     icons,
+//   };
+// }
 
 export default async function DirectoryListingPage({
   searchParams,
@@ -135,23 +135,19 @@ export default async function DirectoryListingPage({
       partnerTierListData = partnerTierRes.data;
       directoryListData = directoryListRes.data;
     } else {
-      // const limit = fixedPageLimit;
-      // const [directoryListRes] = await Promise.all([
-      //   api.post<DirectoryListResponse>("/sc/directory/list/v1", {
-      //     limit: limit,
-      //     offset: 0,
-      //     currencyCode: "INR",
-      //   }),
-      // ]);
-      // directoryListData = directoryListRes?.data;
-      directoryListData = { directoryList: [], total: 0 };
+      const limit = fixedPageLimit;
+
+      const [directoryListRes] = await Promise.all([
+        api.post<DirectoryListResponse>("/sc/directory/list/v1", {
+          limit: limit,
+          offset: 0,
+          currencyCode: "INR",
+        }),
+      ]);
+      directoryListData = directoryListRes.data;
     }
   } catch (err) {
-    if (err instanceof Error) {
-      console.error("API fetch failed1:", err.message);
-    } else {
-      console.error("API fetch failed1:", err);
-    }
+    console.error("API fetch failed:", err);
     return <Center py={5}>Error loading data</Center>;
   }
 
