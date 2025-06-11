@@ -11,9 +11,9 @@ import ScrollHandler from "../components/features/scroll-handler/ScrollHandler";
 import Header from "../components/features/header/Header";
 import Banner from "../components/features/banner/Banner";
 import FeaturedList from "../components/features/directory/featuredlist/FeaturedList";
-import DirectoryListing from "../components/features/directory/DirectoryListing";
+// import DirectoryListing from "../components/features/directory/DirectoryListing";
 import Footer from "../components/features/footer/Footer";
-import { domainsToHideSearchFor } from "@/lib/utils/constantValues";
+// import { domainsToHideSearchFor } from "@/lib/utils/constantValues";
 
 interface DirectoryListingPageProps {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
@@ -163,9 +163,9 @@ export default async function DirectoryListingPage({
     (item) => item?.section === "colors"
   )?.customMapping;
 
-  const filterData = themeData?.["directory-listing"]?.find(
-    (item) => item?.section === "filter"
-  )?.filterMapping;
+  // const filterData = themeData?.["directory-listing"]?.find(
+  //   (item) => item?.section === "filter"
+  // )?.filterMapping;
 
   const footerHtml =
     themeData?.["header-footer"]?.find((item) => item.section === "footer")
@@ -229,7 +229,7 @@ export default async function DirectoryListingPage({
             colorData={colorData}
             pageType="directory-listing"
           />
-          <DirectoryListing
+          {/* <DirectoryListing
             isSearch={
               !domainsToHideSearchFor?.includes(
                 requestDomainData?.subDomain || ""
@@ -256,7 +256,7 @@ export default async function DirectoryListingPage({
                 ? process.env.REACT_APP_STACK_PLAN_ADMIN_TENANTID
                 : themeData?.tenantId
             }
-          />
+          /> */}
         </Box>
         <Box>
           <Footer
