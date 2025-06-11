@@ -1,0 +1,4 @@
+button[id^="popover:"][id$=":trigger"],
+div[id^="popover:"][id$=":content"] {
+  width: -webkit-fill-available !important;
+}

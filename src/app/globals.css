@@ -1,0 +1,163 @@
+body {
+  margin: 0;
+  font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+    "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+.ql-container.ql-snow {
+  height: 100px;
+  /* set height for quill-editor container */
+  background: white;
+}
+
+p.company-profile-custom span,
+div.company-profile-custom span,
+div.company-profile-custom p {
+  color: #556781 !important;
+  font-size: 16px !important;
+  font-weight: 400 !important;
+  line-height: 26px !important;
+}
+
+p.company-profile-custom strong,
+div.company-profile-custom strong {
+  color: #667180 !important;
+  font-size: 18px !important;
+  font-weight: 700 !important;
+}
+
+.company-profile-custom a {
+  color: #0C94AC;
+  text-decoration: underline;
+}
+
+p {
+  margin-bottom: 0px !important;
+}
+
+/* #play-button {
+  position: absolute;
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(90deg);
+  margin-left: 15px;
+} */
+
+.selectCountry .react-select__indicator-separator {
+  display: none;
+}
+
+.selectCountry .react-select__placeholder {
+  font-size: 14px;
+  color: #111A29;
+}
+
+.selectCountry .border-trans,
+.selectCountry .border-trans:hover {
+  border-color: #1C2C44 !important;
+  box-shadow: none !important;
+}
+
+.grid-swiper {
+  padding-top: 60px !important;
+}
+
+.grid-swiper .swiper-button-prev {
+  left: calc(100% - 52px);
+}
+
+.grid-swiper .swiper-button-next,
+.grid-swiper .swiper-button-prev {
+  top: 28px;
+  right: 0;
+  height: 20px;
+}
+
+.grid-swiper .swiper-button-next::after,
+.grid-swiper .swiper-button-prev::after {
+  font-size: 15px;
+  color: #111A29;
+  font-weight: 700;
+}
+
+/* media queries */
+
+@media screen and (max-width: 48em) {
+  div.company-profile-custom p {
+    font-size: 14px !important;
+    line-height: 24px !important;
+  }
+}
+
+/* Directory Listing Style */
+.site-header {
+  position: unset !important;
+}
+
+div:has(header.site-header) {
+  position: sticky !important;
+  top: 0;
+  z-index: 99999;
+}
+
+#dirListMainWrapper {
+  height: 100vh;
+  overflow: auto;
+}
+
+#dirListWrapper {
+  background-color: #F9FCFF;
+}
+
+#dirListBanner {
+  padding: 80px 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#dirListBannerTitle {
+  font-weight: 500;
+  text-align: center;
+}
+
+#dirListBannerSubTitle {
+  line-height: 1.2;
+  text-align: center;
+  margin-top: 16px !important;
+}
+
+#partnerRequestBtn {
+  border-radius: 20px;
+  padding: 8px 16px;
+  height: auto;
+  width: 100%;
+  min-width: 190px;
+  background: transparent;
+}
+
+#serviceRequestBtn {
+  border-radius: 20px;
+  padding: 10px 16px;
+  height: auto;
+  width: 100%;
+  min-width: 190px;
+  border: none;
+}
+
+#dirListCard {
+  border: 1px solid #F9FAFB;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0px 0px 6px -2px #b0b0b0
+}
