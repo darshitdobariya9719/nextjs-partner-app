@@ -135,23 +135,16 @@ export default async function DirectoryListingPage({
       partnerTierListData = partnerTierRes.data;
       directoryListData = directoryListRes.data;
     } else {
-      const limit = fixedPageLimit;
-      console.log('limit', limit)
-
-      const [directoryListRes] = await Promise.all([
-        api.post<DirectoryListResponse>("/sc/directory/list/v1", {
-          limit: limit,
-          offset: 0,
-          currencyCode: "INR",
-        }),
-      ]);
-      console.log('test', {
-          limit: limit,
-          offset: 0,
-          currencyCode: "INR",
-        })
-      directoryListData = directoryListRes?.data;
-      console.log('directoryListRes', directoryListRes)
+      // const limit = fixedPageLimit;
+      // const [directoryListRes] = await Promise.all([
+      //   api.post<DirectoryListResponse>("/sc/directory/list/v1", {
+      //     limit: limit,
+      //     offset: 0,
+      //     currencyCode: "INR",
+      //   }),
+      // ]);
+      // directoryListData = directoryListRes?.data;
+      directoryListData = { directoryList: [], total: 0 };
     }
   } catch (err) {
     if (err instanceof Error) {
