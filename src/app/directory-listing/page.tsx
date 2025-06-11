@@ -19,40 +19,48 @@ interface DirectoryListingPageProps {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
-// export async function generateMetadata({
-//   searchParams,
-// }: DirectoryListingPageProps) {
-//   const params = await searchParams;
-//   const provider = Array.isArray(params?.provider)
-//     ? params?.provider[0]
-//     : params?.provider;
-//   const faviconUrl = process.env.NEXT_PUBLIC_FAVICON_URL || undefined;
+export async function generateMetadata({
+  searchParams,
+}: DirectoryListingPageProps) {
+  const params = await searchParams;
+  const provider = Array.isArray(params?.provider)
+    ? params?.provider[0]
+    : params?.provider;
+  const faviconUrl = process.env.NEXT_PUBLIC_FAVICON_URL || undefined;
 
-//   const requestDomainData = await getRequestDomainData(provider);
+  let requestDomainData: {
+    page: string;
+    slug?: string;
+    subDomain?: string | null;
+  } | null = null;
 
-//   let themeData: CustomThemeResponse | null = null;
+if (provider) {
+  requestDomainData = await getRequestDomainData(provider);
+}
 
-//   if (requestDomainData?.slug || requestDomainData?.subDomain) {
-//     const themeRes = await api.post<CustomThemeResponse>(
-//       "/sp/setup/customTheme",
-//       requestDomainData
-//     );
-//     themeData = themeRes?.data || null;
-//   }
+  let themeData: CustomThemeResponse | null = null;
 
-//   const title = themeData?.companyName || "Partner Directory";
-//   const faviconUrlFromTheme = themeData?.urls?.favIcon || faviconUrl;
-//   const icons = {
-//     icon: faviconUrlFromTheme,
-//   };
+  if (requestDomainData?.slug || requestDomainData?.subDomain) {
+    const themeRes = await api.post<CustomThemeResponse>(
+      "/sp/setup/customTheme",
+      requestDomainData
+    );
+    themeData = themeRes?.data || null;
+  }
 
-//   return {
-//     title,
-//     description:
-//       "Explore our partner directory to find the best solutions for your needs.",
-//     icons,
-//   };
-// }
+  const title = themeData?.companyName || "Partner Directory";
+  const faviconUrlFromTheme = themeData?.urls?.favIcon || faviconUrl;
+  const icons = {
+    icon: faviconUrlFromTheme,
+  };
+
+  return {
+    title,
+    description:
+      "Explore our partner directory to find the best solutions for your needs.",
+    icons,
+  };
+}
 
 export default async function DirectoryListingPage({
   searchParams,
