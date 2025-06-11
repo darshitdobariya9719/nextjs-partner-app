@@ -19,7 +19,6 @@ interface DirectoryListingPageProps {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
-
 // export async function generateMetadata({
 //   searchParams,
 // }: DirectoryListingPageProps) {
@@ -74,7 +73,15 @@ export default async function DirectoryListingPage({
   let pageStatusRes: { page: string; status: string }[] | null = null;
   let isVisibleMatchMakingCard: boolean = true;
 
-  const requestDomainData = await getRequestDomainData(provider);
+  let requestDomainData: {
+    page: string;
+    slug?: string;
+    subDomain?: string | null;
+  } | null = null;
+
+if (provider) {
+  requestDomainData = await getRequestDomainData(provider);
+}
 
   try {
     // Theme setup
