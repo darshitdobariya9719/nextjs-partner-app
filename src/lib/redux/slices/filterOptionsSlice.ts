@@ -81,6 +81,7 @@ export const fetchIndustries = createAsyncThunk(
 export const fetchServices = createAsyncThunk(
   "filters/fetchServices",
   async (tenentId?: string) => {
+    if(!tenentId) return [];
     const { serviceList } = await getServicesById(tenentId);
     return serviceList.map((x: string) => ({ label: x, value: x }));
   }

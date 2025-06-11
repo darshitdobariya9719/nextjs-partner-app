@@ -1,3 +1,4 @@
+"use client";
 import { useCallback, useEffect, useState } from "react";
 import api from "@/lib/axiosClient";
 // import { useRouter } from "next/navigation";
