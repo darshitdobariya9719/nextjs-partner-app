@@ -16,6 +16,7 @@ interface BannerProps {
   data?: BannerMapping;
   pageStatus: PageStatusItem[];
   pageType?: string;
+  provider?: string;
 }
 
 export default function Banner({
@@ -23,8 +24,9 @@ export default function Banner({
   isStatic,
   data,
   pageStatus,
-  pageType,
-}: BannerProps) {
+  provider,
+}: // pageType,
+BannerProps) {
   const partnerEnabled =
     pageStatus.find((item) => item.page === "partner-request")?.status ===
       "published" && data?.partnerRequestBtnChecked;
@@ -73,8 +75,8 @@ export default function Banner({
               border={`2px solid ${data?.partnerRequestBtnColor}`}
               title={data?.partnerRequestBtnTitle}
               href={
-                pageType
-                  ? `/partner-request-page?provider=${pageType}`
+                provider
+                  ? `/partner-request-page?provider=${provider}`
                   : `/partner-request-page`
               }
             >
@@ -94,8 +96,8 @@ export default function Banner({
               color={data?.serviceRequestBtnTitleColor}
               title={data?.serviceRequestBtnTitle}
               href={
-                pageType
-                  ? `/service-request-page?provider=${pageType}`
+                provider
+                  ? `/service-request-page?provider=${provider}`
                   : `/service-request-page`
               }
             >

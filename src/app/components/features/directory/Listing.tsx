@@ -39,16 +39,18 @@ export default function Listing({
     const isDemoData = searchParams.get("isDemoData") === "true";
     const url = `/directory-detail/${slug}`;
     const query = new URLSearchParams();
-    if (pageType) query.append("provider", pageType);
+    // const provider = searchParams.get('provider');
+    // if (provider) query.append("provider", provider);
     if (isDemoData) query.append("isDemoData", "true");
-    const finalUrl = `${url}?${query.toString()}`;
+    const finalUrl = !query.toString() ? url : `${url}?${query.toString()}`;
     router.push(finalUrl);
   };
 
   const handleClick = () => {
-    if (pageType) {
-      router.push(`/service-request-page?provider=${pageType}`);
-    } else if (subDomain) {
+    // if (pageType) {
+    //   router.push(`/service-request-page?provider=${pageType}`);
+    // } else
+    if (subDomain) {
       router.push("/service-request-page");
     } else {
       window.location.href =

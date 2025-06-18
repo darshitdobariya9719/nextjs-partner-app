@@ -65,13 +65,12 @@ export async function generateMetadata({
 export default async function DirectoryListingPage({
   searchParams,
 }: DirectoryListingPageProps) {
+  const pageType = "directory-listing";
+  const fixedPageLimit = 24;
   const params = await searchParams;
   const provider = Array.isArray(params?.provider)
     ? params?.provider[0]
     : params?.provider;
-
-  const pageType = "directory-listing";
-  const fixedPageLimit = 24;
 
   let themeData: CustomThemeResponse | null = null;
   let featuredData: FeaturedListResponse | null = null;

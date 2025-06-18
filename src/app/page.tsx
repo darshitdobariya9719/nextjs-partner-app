@@ -34,9 +34,9 @@ export async function generateMetadata({
     subDomain?: string | null;
   } | null = null;
 
-if (provider) {
-  requestDomainData = await getRequestDomainData(provider);
-}
+  if (provider) {
+    requestDomainData = await getRequestDomainData(provider);
+  }
 
   let themeData: CustomThemeResponse | null = null;
 
@@ -87,9 +87,9 @@ export default async function DirectoryListingPage({
     subDomain?: string | null;
   } | null = null;
 
-if (provider) {
-  requestDomainData = await getRequestDomainData(provider);
-}
+  if (provider) {
+    requestDomainData = await getRequestDomainData(provider);
+  }
 
   try {
     // Theme setup
@@ -229,6 +229,7 @@ if (provider) {
             }
             pageStatus={themeData?.pageStatus || []}
             pageType="directory-listing"
+            provider={provider || ""}
           />
         </Box>
 
