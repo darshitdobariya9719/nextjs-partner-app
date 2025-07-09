@@ -43,7 +43,8 @@ export async function generateMetadata({
 
   let themeData: CustomThemeResponse | null = null;
 
-  if (requestDomainData?.slug || requestDomainData?.subDomain) {
+  // if (requestDomainData?.slug || requestDomainData?.subDomain) {
+  if (requestDomainData?.slug) {
     const themeRes = await api.post<CustomThemeResponse>(
       "/sp/setup/customTheme",
       requestDomainData
@@ -100,7 +101,8 @@ export default async function DirectoryListingPage({
 
   try {
     // Theme setup
-    if (requestDomainData?.slug || requestDomainData?.subDomain) {
+    // if (requestDomainData?.slug || requestDomainData?.subDomain) {
+    if (requestDomainData?.slug) {
       const themeRes = await api.post<CustomThemeResponse>(
         "/sp/setup/customTheme",
         requestDomainData
