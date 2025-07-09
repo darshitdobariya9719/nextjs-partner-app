@@ -96,6 +96,7 @@ export default async function DirectoryListingPage({
   } else {
     requestDomainData = await getRequestDomainData();
   }
+  console.log("requestDomainData", requestDomainData);
 
   try {
     // Theme setup
