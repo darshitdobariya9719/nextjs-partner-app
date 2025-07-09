@@ -14,18 +14,21 @@ import FeaturedList from "../components/features/directory/featuredlist/Featured
 import DirectoryListing from "../components/features/directory/DirectoryListing";
 import Footer from "../components/features/footer/Footer";
 import { domainsToHideSearchFor } from "@/lib/utils/constantValues";
+import { notFound } from "next/navigation";
 
 interface DirectoryListingPageProps {
+  params: Promise<{ slug: string }>;
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
 export async function generateMetadata({
   searchParams,
 }: DirectoryListingPageProps) {
-  const params = await searchParams;
-  const provider = Array.isArray(params?.provider)
-    ? params?.provider[0]
-    : params?.provider;
+  // const { slug } = await params;
+  const searchParamsData = await searchParams;
+  const provider = Array.isArray(searchParamsData?.provider)
+    ? searchParamsData?.provider[0]
+    : searchParamsData?.provider;
   const faviconUrl = process.env.NEXT_PUBLIC_FAVICON_URL || undefined;
 
   let requestDomainData: {
@@ -65,14 +68,19 @@ export async function generateMetadata({
 }
 
 export default async function DirectoryListingPage({
+  params,
   searchParams,
 }: DirectoryListingPageProps) {
+  let { slug: page_name } = await params;
+  if (page_name) {
+    page_name = `/${page_name}`;
+  }
   const pageType = "directory-listing";
   const fixedPageLimit = 24;
-  const params = await searchParams;
-  const provider = Array.isArray(params?.provider)
-    ? params?.provider[0]
-    : params?.provider;
+  const searchParamsData = await searchParams;
+  const provider = Array.isArray(searchParamsData?.provider)
+    ? searchParamsData?.provider[0]
+    : searchParamsData?.provider;
 
   let themeData: CustomThemeResponse | null = null;
   let featuredData: FeaturedListResponse | null = null;
@@ -93,7 +101,15 @@ export default async function DirectoryListingPage({
   //   requestDomainData = await getRequestDomainData(provider);
   // }
   requestDomainData = await getRequestDomainData(provider);
-
+  const response = await api.get(
+    `sp/setup/domain?mainDomain=${requestDomainData?.mainDomain}&path=${page_name}`
+  );
+  // const response = await api.get(
+  //   `/sp/setup/domain?mainDomain=${"coachbar"}&path=${page_name}`
+  // );
+  if (page_name !== response.data) {
+    notFound();
+  }
   try {
     // Theme setup
     if (requestDomainData?.slug || requestDomainData?.subDomain) {
@@ -107,7 +123,6 @@ export default async function DirectoryListingPage({
     // Fetch Featured List + Tier List + Directory List
     if (themeData?.tenantId) {
       pageStatusRes = themeData?.pageStatus;
-
       matchmakingRes = themeData?.["directory-listing"]?.find(
         (item) => item?.section === "matchmakingCard"
       )?.customMapping;

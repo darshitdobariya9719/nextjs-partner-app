@@ -32,11 +32,13 @@ export async function generateMetadata({
     page: string;
     slug?: string;
     subDomain?: string | null;
+    mainDomain?: string | null;
   } | null = null;
 
-  if (provider) {
-    requestDomainData = await getRequestDomainData(provider);
-  }
+  // if (provider) {
+  //   requestDomainData = await getRequestDomainData(provider);
+  // }
+  requestDomainData = await getRequestDomainData(provider);
 
   let themeData: CustomThemeResponse | null = null;
 
@@ -85,11 +87,13 @@ export default async function DirectoryListingPage({
     page: string;
     slug?: string;
     subDomain?: string | null;
+    mainDomain?: string | null;
   } | null = null;
 
-  if (provider) {
-    requestDomainData = await getRequestDomainData(provider);
-  }
+  // if (provider) {
+  //   requestDomainData = await getRequestDomainData(provider);
+  // }
+  requestDomainData = await getRequestDomainData(provider);
 
   try {
     // Theme setup

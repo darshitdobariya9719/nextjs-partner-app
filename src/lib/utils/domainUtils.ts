@@ -41,16 +41,20 @@ export const getRequestDomainData = async (provider?: string) => {
     page: string;
     slug?: string;
     subDomain?: string | null;
+    mainDomain?: string | null;
   } = {
     page: "directory-listing",
   };
 
   if (provider) {
     requestDomainData.slug = provider;
+    requestDomainData.mainDomain = mainDomain;
   } else {
     requestDomainData.subDomain = defaultStackPlanDirectory
       ? process.env.NEXT_APP_STACK_PLAN_PARTNER_DIRECTORY_SUBDOMAIN || null
       : subdomainName;
+    requestDomainData.mainDomain = mainDomain;
+    // requestDomainData.subDomain = "rachitlal";
   }
 
   return requestDomainData;
