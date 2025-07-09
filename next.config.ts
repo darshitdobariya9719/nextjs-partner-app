@@ -10,16 +10,20 @@ const nextConfig: NextConfig = {
     // ], // 👈 add the domain here
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'dev-assets.channelboost.com',
+        protocol: "https",
+        hostname: "dev-assets.channelboost.com",
       },
       {
-        protocol: 'https',
-        hostname: 'd9e5riiwc0eyd.cloudfront.net',
+        protocol: "https",
+        hostname: "d9e5riiwc0eyd.cloudfront.net",
       },
       {
-        protocol: 'https',
-        hostname: 'www.gravatar.com',
+        protocol: "https",
+        hostname: "www.gravatar.com",
+      },
+      {
+        protocol: "https",
+        hostname: "channelboost.s3.amazonaws.com",
       },
     ],
   },

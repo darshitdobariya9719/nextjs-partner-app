@@ -7,31 +7,35 @@ import {
 } from "@/lib/types/featuredList";
 import { getRequestDomainData } from "@/lib/utils/domainUtils";
 import { Box, Center } from "@chakra-ui/react";
-import ScrollHandler from "./components/features/scroll-handler/ScrollHandler";
-import Header from "./components/features/header/Header";
-import Banner from "./components/features/banner/Banner";
-import FeaturedList from "./components/features/directory/featuredlist/FeaturedList";
-import DirectoryListing from "./components/features/directory/DirectoryListing";
-import Footer from "./components/features/footer/Footer";
+import ScrollHandler from "../components/features/scroll-handler/ScrollHandler";
+import Header from "../components/features/header/Header";
+import Banner from "../components/features/banner/Banner";
+import FeaturedList from "../components/features/directory/featuredlist/FeaturedList";
+import DirectoryListing from "../components/features/directory/DirectoryListing";
+import Footer from "../components/features/footer/Footer";
 import { domainsToHideSearchFor } from "@/lib/utils/constantValues";
+import { notFound } from "next/navigation";
 
 interface DirectoryListingPageProps {
+  params: Promise<{ slug: string }>;
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
 export async function generateMetadata({
   searchParams,
 }: DirectoryListingPageProps) {
-  const params = await searchParams;
-  const provider = Array.isArray(params?.provider)
-    ? params?.provider[0]
-    : params?.provider;
+  // const { slug } = await params;
+  const searchParamsData = await searchParams;
+  const provider = Array.isArray(searchParamsData?.provider)
+    ? searchParamsData?.provider[0]
+    : searchParamsData?.provider;
   const faviconUrl = process.env.NEXT_PUBLIC_FAVICON_URL || undefined;
 
   let requestDomainData: {
     page: string;
     slug?: string;
     subDomain?: string | null;
+    mainDomain?: string | null;
   } | null = null;
 
   if (provider) {
@@ -65,15 +69,19 @@ export async function generateMetadata({
 }
 
 export default async function DirectoryListingPage({
+  params,
   searchParams,
 }: DirectoryListingPageProps) {
-  const params = await searchParams;
-  const provider = Array.isArray(params?.provider)
-    ? params?.provider[0]
-    : params?.provider;
-
+  let { slug: page_name } = await params;
+  if (page_name) {
+    page_name = `/${page_name}`;
+  }
   const pageType = "directory-listing";
   const fixedPageLimit = 24;
+  const searchParamsData = await searchParams;
+  const provider = Array.isArray(searchParamsData?.provider)
+    ? searchParamsData?.provider[0]
+    : searchParamsData?.provider;
 
   let themeData: CustomThemeResponse | null = null;
   let featuredData: FeaturedListResponse | null = null;
@@ -87,6 +95,7 @@ export default async function DirectoryListingPage({
     page: string;
     slug?: string;
     subDomain?: string | null;
+    mainDomain?: string | null;
   } | null = null;
 
   if (provider) {
@@ -94,7 +103,15 @@ export default async function DirectoryListingPage({
   } else {
     requestDomainData = await getRequestDomainData();
   }
-
+  const response = await api.get(
+    `sp/setup/domain?mainDomain=${requestDomainData?.mainDomain}&path=${page_name}`
+  );
+  // const response = await api.get(
+  //   `/sp/setup/domain?mainDomain=${"coachbar"}&path=${page_name}`
+  // );
+  if (page_name !== response.data) {
+    notFound();
+  }
   try {
     // Theme setup
     if (requestDomainData?.slug || requestDomainData?.subDomain) {
@@ -108,7 +125,6 @@ export default async function DirectoryListingPage({
     // Fetch Featured List + Tier List + Directory List
     if (themeData?.tenantId) {
       pageStatusRes = themeData?.pageStatus;
-
       matchmakingRes = themeData?.["directory-listing"]?.find(
         (item) => item?.section === "matchmakingCard"
       )?.customMapping;
