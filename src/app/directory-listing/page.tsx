@@ -37,14 +37,13 @@ export async function generateMetadata({
 
   if (provider) {
     requestDomainData = await getRequestDomainData(provider);
-  } else {
-    requestDomainData = await getRequestDomainData();
+    const temp = await getRequestDomainData();
+    console.log("temp", temp);
   }
 
   let themeData: CustomThemeResponse | null = null;
 
-  // if (requestDomainData?.slug || requestDomainData?.subDomain) {
-  if (requestDomainData?.slug) {
+  if (requestDomainData?.slug || requestDomainData?.subDomain) {
     const themeRes = await api.post<CustomThemeResponse>(
       "/sp/setup/customTheme",
       requestDomainData
@@ -94,15 +93,13 @@ export default async function DirectoryListingPage({
 
   if (provider) {
     requestDomainData = await getRequestDomainData(provider);
-  } else {
-    requestDomainData = await getRequestDomainData();
+    const temp = await getRequestDomainData();
+    console.log("temp", temp);
   }
-  console.log("requestDomainData", requestDomainData);
 
   try {
     // Theme setup
-    // if (requestDomainData?.slug || requestDomainData?.subDomain) {
-    if (requestDomainData?.slug) {
+    if (requestDomainData?.slug || requestDomainData?.subDomain) {
       const themeRes = await api.post<CustomThemeResponse>(
         "/sp/setup/customTheme",
         requestDomainData
