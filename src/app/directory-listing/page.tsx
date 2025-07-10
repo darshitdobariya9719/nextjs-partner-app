@@ -47,10 +47,22 @@ export async function generateMetadata({
     const isPartnerDirectoryDomain =
       domainData?.subDomain ===
       process.env.NEXT_PUBLIC_STACK_PLAN_PARTNER_DIRECTORY_SUBDOMAIN;
-
+    console.log(
+      process.env.NEXT_PUBLIC_SUBDOMAIN,
+      "domainData?.subDomain",
+      domainData?.subDomain,
+      process.env.NEXT_PUBLIC_APP_STACK_MAIN_DOMAIN,
+      "process.env.NEXT_PUBLIC_APP_STACK_MAIN_DOMAIN"
+    );
+    console.log("isStackMainDomainMatch", isStackMainDomainMatch);
+    console.log("isPartnerDirectoryDomain", isPartnerDirectoryDomain);
+    console.log(
+      "!isStackMainDomainMatch && !isPartnerDirectoryDomain",
+      !isStackMainDomainMatch && !isPartnerDirectoryDomain
+    );
     // Only assign if domain doesn't match either of these two conditions
     if (!isStackMainDomainMatch && !isPartnerDirectoryDomain) {
-      requestDomainData = { ...domainData };
+      // requestDomainData = { ...domainData };
     }
   }
 
@@ -116,10 +128,22 @@ export default async function DirectoryListingPage({
     const isPartnerDirectoryDomain =
       domainData?.subDomain ===
       process.env.NEXT_PUBLIC_STACK_PLAN_PARTNER_DIRECTORY_SUBDOMAIN;
-
+    console.log(
+      process.env.NEXT_PUBLIC_SUBDOMAIN,
+      "domainData?.subDomain",
+      domainData?.subDomain,
+      process.env.NEXT_PUBLIC_APP_STACK_MAIN_DOMAIN,
+      "process.env.NEXT_PUBLIC_APP_STACK_MAIN_DOMAIN"
+    );
+    console.log("isStackMainDomainMatch", isStackMainDomainMatch);
+    console.log("isPartnerDirectoryDomain", isPartnerDirectoryDomain);
+    console.log(
+      "!isStackMainDomainMatch && !isPartnerDirectoryDomain",
+      !isStackMainDomainMatch && !isPartnerDirectoryDomain
+    );
     // Only assign if domain doesn't match either of these two conditions
     if (!isStackMainDomainMatch && !isPartnerDirectoryDomain) {
-      requestDomainData = { ...domainData };
+      // requestDomainData = { ...domainData };
     }
   }
 
