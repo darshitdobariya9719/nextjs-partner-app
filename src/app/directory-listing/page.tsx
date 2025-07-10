@@ -62,7 +62,7 @@ export async function generateMetadata({
     );
     // Only assign if domain doesn't match either of these two conditions
     if (!isStackMainDomainMatch && !isPartnerDirectoryDomain) {
-      // requestDomainData = { ...domainData };
+      requestDomainData = { ...domainData };
     }
   }
 
@@ -143,7 +143,7 @@ export default async function DirectoryListingPage({
     );
     // Only assign if domain doesn't match either of these two conditions
     if (!isStackMainDomainMatch && !isPartnerDirectoryDomain) {
-      // requestDomainData = { ...domainData };
+      requestDomainData = { ...domainData };
     }
   }
 
