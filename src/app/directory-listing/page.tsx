@@ -37,8 +37,21 @@ export async function generateMetadata({
 
   if (provider) {
     requestDomainData = await getRequestDomainData(provider);
-    const temp = await getRequestDomainData();
-    console.log("temp", temp);
+  } else {
+    const domainData = await getRequestDomainData();
+
+    const isStackMainDomainMatch =
+      domainData?.subDomain === process.env.NEXT_PUBLIC_SUBDOMAIN &&
+      domainData?.mainDomain === process.env.NEXT_PUBLIC_APP_STACK_MAIN_DOMAIN;
+
+    const isPartnerDirectoryDomain =
+      domainData?.subDomain ===
+      process.env.NEXT_PUBLIC_STACK_PLAN_PARTNER_DIRECTORY_SUBDOMAIN;
+
+    // Only assign if domain doesn't match either of these two conditions
+    if (!isStackMainDomainMatch && !isPartnerDirectoryDomain) {
+      requestDomainData = { ...domainData };
+    }
   }
 
   let themeData: CustomThemeResponse | null = null;
@@ -93,8 +106,21 @@ export default async function DirectoryListingPage({
 
   if (provider) {
     requestDomainData = await getRequestDomainData(provider);
-    const temp = await getRequestDomainData();
-    console.log("temp", temp);
+  } else {
+    const domainData = await getRequestDomainData();
+
+    const isStackMainDomainMatch =
+      domainData?.subDomain === process.env.NEXT_PUBLIC_SUBDOMAIN &&
+      domainData?.mainDomain === process.env.NEXT_PUBLIC_APP_STACK_MAIN_DOMAIN;
+
+    const isPartnerDirectoryDomain =
+      domainData?.subDomain ===
+      process.env.NEXT_PUBLIC_STACK_PLAN_PARTNER_DIRECTORY_SUBDOMAIN;
+
+    // Only assign if domain doesn't match either of these two conditions
+    if (!isStackMainDomainMatch && !isPartnerDirectoryDomain) {
+      requestDomainData = { ...domainData };
+    }
   }
 
   try {
